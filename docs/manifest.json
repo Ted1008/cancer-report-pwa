@@ -2,7 +2,7 @@
     "name": "癌症報告統計 PWA",
     "short_name": "癌報統計",
     "description": "統計病理報告中新診斷癌症數量",
-    "start_url": "/index.html",
+    "start_url": "index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#2c3e50",
