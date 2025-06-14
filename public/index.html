@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>癌症報告統計 PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192x192.png"> <meta name="theme-color" content="#ffffff"> </head>
+<body>
+    <header>
+        <h1>癌症報告統計 PWA</h1>
+    </header>
+
+    <main>
+        <section id="upload-section" class="card">
+            <h2>上傳病理報告文字檔</h2>
+            <input type="file" id="fileInput" accept=".txt">
+            <button id="processFileBtn">處理檔案</button>
+            <p id="fileNameDisplay"></p>
+            <p id="statusMessage" class="status-message"></p>
+        </section>
+
+        <section id="results-section" class="card" style="display:none;">
+            <h2>統計結果</h2>
+            <div class="table-container">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>解剖部位 (癌別)</th>
+                            <th>癌症數量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <button id="downloadResultsBtn">下載統計結果 (CSV)</button>
+        </section>
+
+        <section id="code-maintenance-section" class="card" style="display:none;">
+            <h2>碼表維護</h2>
+
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="cancer-codes">癌症診斷碼</button>
+                <button class="tab-button" data-tab="anatomy-codes">解剖部位對照表</button>
+            </div>
+
+            <div id="cancer-codes-tab" class="tab-content active">
+                <h3>癌症診斷碼對照表</h3>
+                <div class="table-container">
+                    <table id="cancerCodeTable">
+                        <thead>
+                            <tr>
+                                <th>SNOMED 診斷碼</th>
+                                <th>描述</th>
+                                <th>是癌症</th>
+                                <th>是轉移</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+                <div class="add-new-code">
+                    <h4>新增/編輯癌症碼</h4>
+                    <input type="text" id="addCancerCodeSnomed" placeholder="SNOMED 診斷碼">
+                    <input type="text" id="addCancerCodeDesc" placeholder="描述">
+                    <label>
+                        <input type="checkbox" id="addCancerCodeIsCancer"> 是癌症
+                    </label>
+                    <label>
+                        <input type="checkbox" id="addCancerCodeIsMetastasis"> 是轉移
+                    </label>
+                    <button id="saveCancerCodeBtn">儲存癌症碼</button>
+                    <button id="cancelEditCancerCodeBtn" style="display: none;">取消編輯</button>
+                </div>
+                <div id="unidentifiedCancerCodes" class="unidentified-codes-area">
+                    <h4>未識別癌症診斷碼提示</h4>
+                    <p>在本次報告中發現以下診斷碼未在對照表中，請勾選後新增：</p>
+                    <ul id="unidentifiedCancerCodeList">
+                        </ul>
+                    <button id="addSelectedUnidentifiedCancerCodesBtn" style="display: none;">新增選取至對照表</button>
+                </div>
+                <button id="exportCancerCodesBtn">匯出癌症碼 (JSON)</button>
+            </div>
+
+            <div id="anatomy-codes-tab" class="tab-content">
+                <h3>解剖部位 SNOMED 對應表</h3>
+                <div class="table-container">
+                    <table id="anatomyCodeTable">
+                        <thead>
+                            <tr>
+                                <th>SNOMED 解剖碼</th>
+                                <th>歸戶部位名稱</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+                <div class="add-new-code">
+                    <h4>新增/編輯解剖碼</h4>
+                    <input type="text" id="addAnatomyCodeSnomed" placeholder="SNOMED 解剖碼">
+                    <input type="text" id="addAnatomyCodeMappedName" placeholder="歸戶部位名稱">
+                    <button id="saveAnatomyCodeBtn">儲存解剖碼</button>
+                    <button id="cancelEditAnatomyCodeBtn" style="display: none;">取消編輯</button>
+                </div>
+                <div id="unidentifiedAnatomyCodes" class="unidentified-codes-area">
+                    <h4>未建檔解剖碼提示</h4>
+                    <p>在本次報告中發現以下解剖碼未在對照表中，請直接在下方表格中編輯歸戶部位：</p>
+                    <ul id="unidentifiedAnatomyCodeList">
+                        </ul>
+                </div>
+                <button id="exportAnatomyCodesBtn">匯出解剖碼 (JSON)</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 癌症報告統計 PWA</p>
+    </footer>
+
+    <script src="js/db.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/processor.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
