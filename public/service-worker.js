@@ -1,16 +1,15 @@
 const CACHE_NAME = 'cancer-report-stats-pwa-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/app.js',
-    '/js/db.js',
-    '/js/parser.js',
-    '/js/processor.js',
-    '/js/ui.js',
-    '/manifest.json',
-    '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png'
+    'index.html',
+    'style.css',
+    'app.js',
+    'js/db.js',
+    'js/parser.js',
+    'js/processor.js',
+    'js/ui.js',
+    'manifest.json',
+    //'icons/icon-192x192.png',
+    //'icons/icon-512x512.png'
     // Add other assets you want to cache for offline use
 ];
 
